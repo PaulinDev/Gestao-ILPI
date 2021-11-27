@@ -10,8 +10,10 @@
         "production": "mix --production"
     },
     "devDependencies": {
+        "@mdi/font": "^6.5.95",
         "axios": "^0.21",
         "bootstrap": "^4.6.0",
+        "deepmerge": "^4.2.2",
         "jquery": "^3.6",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
@@ -22,6 +24,11 @@
         "sass-loader": "^11.0.1",
         "vue": "^2.6.12",
         "vue-loader": "^15.9.8",
-        "vue-template-compiler": "^2.6.12"
+        "vue-template-compiler": "^2.6.12",
+        "@mdi/js": "^5.9.55",
+        "@vue/composition-api": "1.0.4"
+    },
+    "dependencies": {
+        "vuetify": "^2.6.0"
     }
 }
