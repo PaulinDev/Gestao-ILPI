@@ -14,6 +14,7 @@ class CreateVaccineRecordsTable extends Migration
     public function up()
     {
         Schema::create('vaccine_records', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->id();
             $table->bigInteger('patient')->unsigned();
             $table->bigInteger('vaccine')->unsigned();

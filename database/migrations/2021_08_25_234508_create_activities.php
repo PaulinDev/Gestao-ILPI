@@ -14,6 +14,7 @@ class CreateActivities extends Migration
     public function up()
     {
         Schema::create('activities', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->id();
             $table->bigInteger("group")->unsigned();
             $table->text("name");

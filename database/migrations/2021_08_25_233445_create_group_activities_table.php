@@ -14,6 +14,7 @@ class CreateGroupActivitiesTable extends Migration
     public function up()
     {
         Schema::create('group_activities', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->id();
             $table->text("name");
             $table->timestamps();

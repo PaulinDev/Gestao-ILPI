@@ -14,6 +14,7 @@ class CreateUserAddressesTable extends Migration
     public function up()
     {
         Schema::create('user_addresses', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->id();
             $table->text('Cep');
             $table->integer('Number')->nullable();
@@ -21,13 +22,7 @@ class CreateUserAddressesTable extends Migration
             $table->text('Province');
             $table->text('District');
             $table->text('Street');
-            $table->bigInteger("userId")->unsigned();
             $table->timestamps();
-
-            //FK
-
-            $table->foreign("userId")->references("id")->on("users")->cascadeOnDelete()->cascadeOnUpdate();
-
         });
     }
 

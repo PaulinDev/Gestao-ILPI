@@ -14,6 +14,7 @@ class CreateGendersTable extends Migration
     public function up()
     {
         Schema::create('genders', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->id();
             $table->text('description');
             $table->timestamps();

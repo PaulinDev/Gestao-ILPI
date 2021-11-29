@@ -14,6 +14,7 @@ class CreateUserTypesTable extends Migration
     public function up()
     {
         Schema::create('user_types', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->id();
             $table->text('name');
             $table->text('description');

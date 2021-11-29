@@ -14,6 +14,7 @@ class CreateVaccinBrandesTable extends Migration
     public function up()
     {
         Schema::create('vaccine_brands', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->id();
             $table->text('name');
             $table->bigInteger('vaccine')->unsigned();

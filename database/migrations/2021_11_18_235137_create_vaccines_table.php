@@ -14,6 +14,7 @@ class CreateVaccinesTable extends Migration
     public function up()
     {
         Schema::create('vaccines', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->id();
             $table->text('name');
             $table->boolean('status');

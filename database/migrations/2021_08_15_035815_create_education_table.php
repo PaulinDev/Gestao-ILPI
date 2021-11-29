@@ -14,6 +14,7 @@ class CreateEducationTable extends Migration
     public function up()
     {
         Schema::create('education', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->id();
             $table->text('description');
             $table->timestamps();

@@ -14,6 +14,7 @@ class CreateEventActivitiesTable extends Migration
     public function up()
     {
         Schema::create('event_activities', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->id();
             $table->bigInteger("activity")->unsigned();
             $table->bigInteger("patient")->unsigned();

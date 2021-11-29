@@ -14,6 +14,7 @@ class CreateSituationsTable extends Migration
     public function up()
     {
         Schema::create('situations', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->id();
             $table->text('description');
             $table->timestamps();

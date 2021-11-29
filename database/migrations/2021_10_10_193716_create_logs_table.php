@@ -14,6 +14,7 @@ class CreateLogsTable extends Migration
     public function up()
     {
         Schema::create('logs', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->id();
             $table->bigInteger("user")->unsigned();
             $table->text("action");

@@ -14,6 +14,7 @@ class CreateCountriesTable extends Migration
     public function up()
     {
         Schema::create('countries', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->id();
             $table->text('name');
             $table->timestamps();
