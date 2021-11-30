@@ -59,7 +59,7 @@
 
 <script>
 export default {
-    props: ["token_csrf"],
+    props: ["token_csrf", "urlBaseApi"],
     name: "app-login",
     data() {
         return {
@@ -69,7 +69,7 @@ export default {
     },
     methods: {
         login(event) {
-            let endPoint = 'http://localhost:8000/api/login';
+            let endPoint = this.urlBaseApi+'/api/login';
             let settings = {
                 method: 'post',
                 body: new URLSearchParams({
