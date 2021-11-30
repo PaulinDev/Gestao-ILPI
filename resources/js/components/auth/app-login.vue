@@ -69,23 +69,20 @@ export default {
     },
     methods: {
         login(event) {
-            let endPoint = this.urlBaseApi+'/api/login';
-            let settings = {
-                method: 'post',
-                body: new URLSearchParams({
-                    'email': this.email,
-                    'password': this.password
-                })
+
+            let data = {
+                'email': this.email,
+                'password': this.password
             }
 
-            fetch(endPoint, settings)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.token) {
+            axios.post(this.urlBaseApi + '/api/login', data).then(
+                (response) => {
+                    if (response.data.token) {
                         document.cookie = 'token=' + data.token + ';SameSite=Lax';
                         event.target.submit();
                     }
-                });
+                }
+            );
         }
     }
 }
