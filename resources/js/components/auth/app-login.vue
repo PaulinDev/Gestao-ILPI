@@ -78,6 +78,7 @@ export default {
             axios.post(this.urlBaseApi + '/api/login/', data).then(
                 (response) => {
                     if (response.data.token) {
+                        console.log(response);
                         document.cookie = 'token=' + response.data.token + ';SameSite=Lax';
                         event.target.submit();
                     }
