@@ -6,6 +6,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EventActivityController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\GroupActivityController;
+use App\Http\Controllers\OccupationController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\UserPermissionController;
 use App\Http\Controllers\UserPostController;
@@ -48,7 +49,8 @@ Route::prefix('v1')->middleware(['jwt.auth'])->group(function () {
         'user-permission' => UserPermissionController::class,
         'vaccines' => VaccineController::class,
         'vaccine-brand' => VaccineBrandController::class,
-        'vaccine-record' => VaccineRecordController::class
+        'vaccine-record' => VaccineRecordController::class,
+        'occupations' => OccupationController::class
     ]);
 
 });

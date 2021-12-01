@@ -14,7 +14,7 @@ class OccupationController extends Controller
      */
     public function index()
     {
-        //
+        return Occupation::all();
     }
 
     /**

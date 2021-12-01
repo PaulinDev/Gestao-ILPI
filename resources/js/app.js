@@ -16,6 +16,11 @@ Vue.component('edit-employee', require('./components/employee/edit.vue').default
 const app = new Vue({
     el: '#app',
     vuetify,
+    data() {
+        return {
+            themeDark: false
+        }
+    },
     methods: {
         token() {
             let token = document.cookie.split(';').find(index => {

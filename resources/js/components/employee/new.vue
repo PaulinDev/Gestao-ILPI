@@ -385,6 +385,8 @@ export default {
                         this.genderItems.push({text: item.description, value: item.id})
                     });
                     this.loadItemGender = false;
+                }, (error) => {
+                    console.log(error);
                 }
             )
         }, getUserPostItems() {
@@ -400,6 +402,8 @@ export default {
                         this.userPostsItems.push({text: item.name, value: item.id})
                     });
                     this.loadItemUserPost = false;
+                }, (error) => {
+                    console.log(error);
                 }
             )
         },
@@ -416,6 +420,8 @@ export default {
                         this.userPermissionItems.push({text: item.name, value: item.id})
                     });
                     this.loadItemUserPermission = false;
+                }, (error) => {
+                    console.log(error);
                 }
             )
         },
