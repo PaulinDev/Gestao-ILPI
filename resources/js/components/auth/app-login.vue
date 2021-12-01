@@ -75,10 +75,10 @@ export default {
                 'password': this.password
             }
 
-            axios.post(this.urlBaseApi + '/api/login', data).then(
+            axios.post(this.urlBaseApi + '/api/login/', data).then(
                 (response) => {
                     if (response.data.token) {
-                        document.cookie = 'token=' + data.token + ';SameSite=Lax';
+                        document.cookie = 'token=' + response.data.token + ';SameSite=Lax';
                         event.target.submit();
                     }
                 }
