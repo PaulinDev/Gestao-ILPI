@@ -8,7 +8,7 @@
             nav
             dense
         >
-            <v-list-item link href="https://gestaoilpi.com.br/employees/list">
+            <v-list-item link :href="this.pageUrlEmployee">
                 <v-list-item-icon>
                     <i class="fas fa-user"></i>
                 </v-list-item-icon>
@@ -20,7 +20,8 @@
 
 <script>
 export default {
-    name: "navigation"
+    name: "navigation",
+    props: ['pageUrlEmployee']
 }
 </script>
 
