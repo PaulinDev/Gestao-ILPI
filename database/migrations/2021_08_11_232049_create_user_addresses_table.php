@@ -22,7 +22,13 @@ class CreateUserAddressesTable extends Migration
             $table->text('Province');
             $table->text('District');
             $table->text('Street');
+            $table->bigInteger('userId')->unsigned();
             $table->timestamps();
+
+            //FK's
+
+            $table->foreign("userId")->references("id")->on("users")->cascadeOnDelete()->cascadeOnUpdate();
+
         });
     }
 

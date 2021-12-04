@@ -245,7 +245,7 @@
                         :disabled="!formValidate"
                         @click="requestEditUser()"
                     >
-                        Cadastrar
+                        Atualizar
                     </v-btn>
                 </v-stepper-content>
             </v-stepper>
@@ -362,13 +362,15 @@ export default {
                     this.userRg = response.data.userRg;
                     this.userPermission = response.data.permission;
                     this.userPost = response.data.post;
-                    this.addressCep = response.data.get_address.Cep;
-                    this.addressCity = response.data.get_address.City;
-                    this.addressProvince = response.data.get_address.Province;
-                    this.addressStreet = response.data.get_address.Street;
-                    this.addressNumber = response.data.get_address.Number;
-                    this.addressDistrict = response.data.get_address.District;
-                    this.getAddress(this.addressCep);
+                    if(response.data.get_address){
+                        this.addressCep = response.data.get_address.Cep;
+                        this.addressCity = response.data.get_address.City;
+                        this.addressProvince = response.data.get_address.Province;
+                        this.addressStreet = response.data.get_address.Street;
+                        this.addressNumber = response.data.get_address.Number;
+                        this.addressDistrict = response.data.get_address.District;
+                        this.getAddress(this.addressCep);
+                    }
                 }
             )
         },
@@ -487,10 +489,11 @@ export default {
                 'addressDistrict': this.addressDistrict
 
             };
-
+            console.log(data);
             axios.put(this.urlBaseApi + '/' + this.idCurrentEmployee, data, settings)
                 .then(
-                    () => {
+                    (response) => {
+                        console.log(response);
                         let urlTarget = this.urlPageIndex;
                         this.alert = true;
                         this.alertMessage = 'Usuário atualizado com sucesso';
@@ -501,8 +504,8 @@ export default {
                 )
                 .catch(
                     () => {
-                        this.barAlert = true;
-                        this.barAlertMessage = 'Erro no cadastro, tente novamente';
+                        this.alert = true;
+                        this.alertMessage = 'Erro no cadastro, tente novamente';
                     }
                 )
 

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\newUserNotification;
 use App\Models\User;
 use App\Models\UserAddress;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use function PHPUnit\Framework\isEmpty;
 use function PHPUnit\Framework\isNull;
 
 class EmployeeController extends Controller
@@ -47,6 +50,10 @@ class EmployeeController extends Controller
 
         $employee->save();
 
+        $user = User::where('id', $employee->id)->first();
+
+        Mail::to($user->email)->send(new newUserNotification($user));
+
     }
 
     public function show(User $employee)
@@ -57,9 +64,7 @@ class EmployeeController extends Controller
     public function update(Request $request, User $employee)
     {
 
-        $address = UserAddress::where('userId', '=', $employee->id)->get();
-
-        if ($address->isEmpty()) {
+        if (empty($employee->getAddress)) {
             $newAddress = new UserAddress();
             $newAddress->Cep = $request->addressCep;
             $newAddress->Number = $request->addressNumber;
