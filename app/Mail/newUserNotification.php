@@ -29,10 +29,9 @@ class newUserNotification extends Mailable
      */
     public function build()
     {
-        return $this->from('to@email.com')
-            ->view('emails.test')
-            ->with([
-                'user' => $this->user,
-            ]);
+
+        $this->from('admin@gestao.com.br');
+        return $this->view('layouts.app-email-notification', ['user' => $this->user]);
+
     }
 }

@@ -1,5 +1,8 @@
 <?php
 
+use App\Mail\newUserNotification;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,4 +38,26 @@ Route::middleware('auth')->prefix('employees')->group(function () {
     Route::get('/list', function () {
         return view('app.employees.list', ['pageName' => 'Lista de Funcionários', 'parentPage' => 'Funcionários', 'breadCrumb' => true]);
     })->name('user.list.page');
+});
+
+/* GESTÃO DOS UTENTES */
+
+Route::middleware('auth')->prefix('patients')->group(function () {
+    Route::get('/edit/{id}', function ($id) {
+        return view('app.patients.edit', ['pageName' => 'Cadastro de Funcionário', 'parentPage' => 'Funcionários', 'breadCrumb' => true, 'idCurrentEmployee' => $id]);
+    })->name('patient.edit.page');
+
+    Route::get('/view/{id}', function ($id) {
+        return view('app.patients.view', ['pageName' => 'Cadastro de Funcionário', 'parentPage' => 'Funcionários', 'breadCrumb' => true, 'idCurrentPatient' => $id]);
+    })->name('patient.view.page');
+
+    Route::get('/list', function () {
+        return view('app.patients.list', ['pageName' => 'Lista de Funcionários', 'parentPage' => 'Funcionários', 'breadCrumb' => true]);
+    })->name('patient.list.page');
+});
+
+Route::get('/teste-email', function(){
+    $user = User::with('getPost')->find(1);
+
+    Mail::to($user->email)->send(new newUserNotification($user));
 });

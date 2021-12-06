@@ -36,7 +36,6 @@ export default {
     name: "bar",
     props: ['currentUser', 'currentUserPost'],
     mounted() {
-        console.log(this.currentUser);
     }
 }
 </script>

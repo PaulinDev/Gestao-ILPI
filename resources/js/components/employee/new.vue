@@ -471,6 +471,7 @@ export default {
             axios.post(this.urlBaseApi, data, settings)
                 .then(
                     (response) => {
+                        console.log(response);
                         let urlTarget = this.urlPageIndex;
                         this.alert = true;
                         this.alertMessage = 'Usuário cadastrado com sucesso';

@@ -13,6 +13,13 @@ Vue.component('list-employee', require('./components/employee/list.vue').default
 Vue.component('new-employee', require('./components/employee/new.vue').default);
 Vue.component('edit-employee', require('./components/employee/edit.vue').default);
 
+Vue.component('list-patient', require('./components/patients/list.vue').default);
+Vue.component('new-patient', require('./components/patients/new.vue').default);
+Vue.component('edit-patient', require('./components/patients/edit.vue').default);
+Vue.component('view-patient', require('./components/patients/view-patient.vue').default);
+Vue.component('patient-info', require('./components/patients/patient-info.vue').default);
+Vue.component('patient-additional-info', require('./components/patients/patient-additional-info.vue').default);
+
 const app = new Vue({
     el: '#app',
     vuetify,

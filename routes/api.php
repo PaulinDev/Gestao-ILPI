@@ -2,12 +2,18 @@
 
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CivilController;
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\EducationController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EventActivityController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\GroupActivityController;
 use App\Http\Controllers\OccupationController;
+use App\Http\Controllers\PatientAddressController;
+use App\Http\Controllers\PatientCardController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\UserHealthController;
 use App\Http\Controllers\UserPermissionController;
 use App\Http\Controllers\UserPostController;
 use App\Http\Controllers\VaccineBrandController;
@@ -42,14 +48,20 @@ Route::prefix('v1')->middleware(['jwt.auth'])->group(function () {
         'activity-patient' => EventActivityController::class,
         'activity-group' => GroupActivityController::class,
         'activities' => ActivityController::class,
+        'user-health' => UserHealthController::class,
+        'patient-cards' => PatientCardController::class,
+        'patient-address' => PatientAddressController::class,
         'employees' => EmployeeController::class,
+        'countries' => CountryController::class,
         'genders' => GenderController::class,
+        'civils' => CivilController::class,
+        'educations' => EducationController::class,
+        'occupations' => OccupationController::class,
         'user-posts' => UserPostController::class,
         'user-permission' => UserPermissionController::class,
         'vaccines' => VaccineController::class,
         'vaccine-brand' => VaccineBrandController::class,
         'vaccine-record' => VaccineRecordController::class,
-        'occupations' => OccupationController::class
     ]);
 
 });

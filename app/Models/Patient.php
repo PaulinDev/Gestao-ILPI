@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Patient extends Model
 {
+
     use HasFactory;
+
+    protected $fillable = ['additional'];
+
     public function getGender()
     {
         return $this->hasOne(Gender::class, 'id', 'gender');
@@ -46,5 +50,17 @@ class Patient extends Model
     public function getVaccines()
     {
         return $this->hasMany(VaccineRecord::class, 'patient', 'id');
+    }
+
+    public function getHealth(){
+        return $this->hasOne(UserHealth::class, 'patient', 'id');
+    }
+
+    public function getCards(){
+        return $this->hasOne(PatientCard::class, 'patient', 'id');
+    }
+
+    public function getAddress(){
+        return $this->hasOne(PatientAddress::class, 'patient', 'id');
     }
 }

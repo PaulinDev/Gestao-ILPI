@@ -48,8 +48,34 @@
                     {{ shortName(item.name) }}
                 </template>
                 <template v-slot:item.actions="{item}">
-                    <v-btn :href="urlPageEdit+'/'+item.id" text><v-icon small class="mr-2" color="orange darken-2"> mdi-pencil</v-icon></v-btn>
-                    <v-btn text><v-icon small color="red darken-2" @click="deleteDialogItem(item.id);"> mdi-delete</v-icon></v-btn>
+                    <v-menu
+                        bottom
+                        left
+                    >
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn
+                                icon
+                                v-bind="attrs"
+                                v-on="on"
+                            >
+                                <v-icon>mdi-dots-vertical</v-icon>
+                            </v-btn>
+                        </template>
+
+                        <v-list dense>
+                            <v-list-item>
+                                <v-list-item-title>Detalhes</v-list-item-title>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-title><v-btn :href="urlPageEdit+'/'+item.id" text><v-icon small class="mr-2" color="orange darken-2"> mdi-pencil</v-icon> Editar</v-btn></v-list-item-title>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-title><v-btn text @click="deleteDialogItem(item.id);"><v-icon class="mr-2" small color="red darken-2"> mdi-delete</v-icon> Excluir</v-btn></v-list-item-title>
+                            </v-list-item>
+                        </v-list>
+                    </v-menu>
+
+
                 </template>
 
             </v-data-table>
