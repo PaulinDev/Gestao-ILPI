@@ -63,4 +63,8 @@ class Patient extends Model
     public function getAddress(){
         return $this->hasOne(PatientAddress::class, 'patient', 'id');
     }
+
+    public function getInventory(){
+        return $this->hasMany(PatientInventory::class, 'patientId', 'id');
+    }
 }

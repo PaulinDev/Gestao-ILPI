@@ -184,7 +184,7 @@
                     <v-btn
                         color="error"
                         text
-                        @click="dialogNewPost = false"
+                        @click="$emit('listenNewRequestUser', true)"
                     >
                         Cancelar
                     </v-btn>

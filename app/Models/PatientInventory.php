@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class PatientInventory extends Model
 {
     use HasFactory;
+
+    public function getTypeInventory()
+    {
+        return $this->hasOne(InventoryType::class, 'id', 'type');
+    }
+
 }

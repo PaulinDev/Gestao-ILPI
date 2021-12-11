@@ -28,7 +28,10 @@
             url-base-api-health="{{route('user-health.index')}}"
             url-base-api-cards="{{route('patient-cards.index')}}"
             url-base-api-address="{{route('patient-address.index')}}"
+            url-base-api-inventory-type="{{route('inventory-type.index')}}"
+            url-base-api-patient-inventory="{{route('patient-inventory.index')}}"
         ></patient-additional-info>
+
     </div>
     <form method="POST" action="{{ route('logout') }}">
         @csrf

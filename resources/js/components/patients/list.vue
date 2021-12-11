@@ -30,7 +30,7 @@
                 :url-base-api-country="urlBaseApiCountry"
                 :url-base-api-education="urlBaseApiEducation"
                 :url-base-api-occupation="urlBaseApiOccupation"
-                v-on:listenNewRequestUser="listenNewRequestUser"
+                @listenNewRequestUser="listenNewRequestUser"
             ></new-patient>
         </v-dialog>
 
@@ -235,7 +235,6 @@ export default {
     },
     methods: {
         getEmployees() {
-
             let settings = {
                 headers: {
                     'Accept': 'application/json',
@@ -295,11 +294,15 @@ export default {
 
             return newName;
         },
-        listenNewRequestUser: function () {
-            this.dialogNewPatient = false;
-            this.getEmployees();
-            this.alert = true;
-            this.alertMessage = 'Usuário cadastrado com sucesso';
+        listenNewRequestUser(cancel) {
+            if (cancel) {
+                this.dialogNewPatient = false;
+            } else {
+                this.dialogNewPatient = false;
+                this.getEmployees();
+                this.alert = true;
+                this.alertMessage = 'Usuário cadastrado com sucesso';
+            }
         }
     },
     mounted() {

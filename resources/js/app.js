@@ -20,6 +20,9 @@ Vue.component('view-patient', require('./components/patients/view-patient.vue').
 Vue.component('patient-info', require('./components/patients/patient-info.vue').default);
 Vue.component('patient-additional-info', require('./components/patients/patient-additional-info.vue').default);
 
+Vue.component('patient-inventory-new', require('./components/patients/inventory/new.vue').default);
+Vue.component('patient-inventory-edit', require('./components/patients/inventory/edit.vue').default);
+
 const app = new Vue({
     el: '#app',
     vuetify,

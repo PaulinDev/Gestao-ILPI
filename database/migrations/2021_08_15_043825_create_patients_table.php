@@ -19,8 +19,9 @@ class CreatePatientsTable extends Migration
             $table->string('name');
             $table->string('nick');
             $table->string('additional')->nullable();
-            $table->dateTime('birthdate');
-            $table->dateTime('admission');
+            $table->string('photo')->nullable();
+            $table->date('birthdate');
+            $table->date('admission');
             $table->bigInteger('gender')->unsigned();
             $table->bigInteger('civil')->unsigned();
             $table->bigInteger('education')->unsigned();

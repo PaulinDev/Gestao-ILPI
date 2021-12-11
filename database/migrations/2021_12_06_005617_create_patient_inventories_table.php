@@ -15,7 +15,21 @@ class CreatePatientInventoriesTable extends Migration
     {
         Schema::create('patient_inventories', function (Blueprint $table) {
             $table->id();
+            $table->text('name');
+            $table->integer('quantity');
+            $table->date('expirationDate');
+            $table->date('manufacturingDate')->nullable();
+            $table->bigInteger('patientId')->unsigned()->nullable();
+            $table->bigInteger('userId')->unsigned()->nullable();
+            $table->bigInteger('type')->unsigned();
             $table->timestamps();
+
+            //FK's
+
+            $table->foreign('patientId')->references('id')->on('patients')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('userId')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('type')->references('id')->on('inventory_types')->cascadeOnDelete()->cascadeOnUpdate();
+
         });
     }
 

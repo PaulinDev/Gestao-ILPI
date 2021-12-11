@@ -9,10 +9,12 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EventActivityController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\GroupActivityController;
+use App\Http\Controllers\InventoryTypeController;
 use App\Http\Controllers\OccupationController;
 use App\Http\Controllers\PatientAddressController;
 use App\Http\Controllers\PatientCardController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\PatientInventoryController;
 use App\Http\Controllers\UserHealthController;
 use App\Http\Controllers\UserPermissionController;
 use App\Http\Controllers\UserPostController;
@@ -51,6 +53,8 @@ Route::prefix('v1')->middleware(['jwt.auth'])->group(function () {
         'user-health' => UserHealthController::class,
         'patient-cards' => PatientCardController::class,
         'patient-address' => PatientAddressController::class,
+        'patient-inventory' => PatientInventoryController::class,
+        'inventory-type' => InventoryTypeController::class,
         'employees' => EmployeeController::class,
         'countries' => CountryController::class,
         'genders' => GenderController::class,

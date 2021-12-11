@@ -18,8 +18,9 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
-</IfModule>
 
-RewriteEngine On
-RewriteCond %{HTTP_HOST} ^domain.com [NC]
-RewriteRule (.*) http://www.gestaoilpi.com.br/$1 [L,R=301]
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+</IfModule>

@@ -15,9 +15,9 @@
 <body>
 <div id="app">
     <v-app>
-        <app-navigation page-url-employee="{{route('user.list.page')}}"></app-navigation>
+        <app-navigation page-url-employee="{{route('user.list.page')}}" page-url-patients="{{route('patient.list.page')}}"></app-navigation>
 
-        <app-bar current-user="{{Auth::user()}}" current-user-post="{{Auth::user()->getPost}}"></app-bar>
+        <app-bar current-user-name="{{Auth::user()->name}}" current-user-post="{{Auth::user()->getPost->name}}"></app-bar>
 
         <v-main>
 

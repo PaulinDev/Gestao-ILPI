@@ -1,5 +1,6 @@
 <template>
     <div>
+
         <v-card
             class="mx-auto my-12 pt-10"
         >
@@ -109,7 +110,7 @@
                         :url-base-api-country="urlBaseApiCountry"
                         :url-base-api-education="urlBaseApiEducation"
                         :url-base-api-occupation="urlBaseApiOccupation"
-                        v-on:listenEditRequestUser="listenEditRequestUser"
+                        @listenEditRequestUser="listenEditRequestUser"
                     ></edit-patient>
                 </v-dialog>
                 <v-btn
@@ -253,13 +254,17 @@ export default {
                 year = getDate.getFullYear(),
                 monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
-            return day + 1 + ' de ' + monthNames[month] + ' de ' + year;
+            return day + ' de ' + monthNames[month] + ' de ' + year;
         },
-        listenEditRequestUser() {
-            this.dialogEditPatient = false;
-            this.alert = true;
-            this.alertMessage = 'Utente atualizado com sucesso';
-            this.getPatient();
+        listenEditRequestUser(cancel) {
+            if (cancel) {
+                this.dialogEditPatient = false;
+            } else {
+                this.dialogEditPatient = false;
+                this.alert = true;
+                this.alertMessage = 'Utente atualizado com sucesso';
+                this.getPatient();
+            }
         }
     },
     mounted() {

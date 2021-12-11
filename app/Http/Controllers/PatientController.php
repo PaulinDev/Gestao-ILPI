@@ -12,7 +12,7 @@ class PatientController extends Controller
     {
         return Patient::with('getGender')->with('getCountry')->with('getSituation')
             ->with('getOccupation')->with('getEducation')->with('getCivil')->with('getHealth')
-            ->with('getCards')->with('getAddress')->get();
+            ->with('getCards')->with('getAddress')->with('getInventory')->get();
     }
 
 
@@ -38,7 +38,7 @@ class PatientController extends Controller
     {
         return Patient::with('getGender')->with('getCountry')->with('getSituation')
             ->with('getOccupation')->with('getEducation')->with('getCivil')
-            ->with('getHealth')->with('getAddress')->with('getCards')->find($patient->id);
+            ->with('getHealth')->with('getAddress')->with('getInventory')->with('getCards')->find($patient->id);
     }
 
 
@@ -47,7 +47,27 @@ class PatientController extends Controller
 
         $patient->name = $request->name;
         $patient->nick = $request->nick;
-        //$patient->additional = $request->additional;
+
+//        $nameFile = null;
+//
+//        if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
+//
+//            $name = uniqid(date('HisYmd'));
+//            $extension = $request->photo->extension();
+//
+//            $nameFile = "{$name}.{$extension}";
+//
+//            $upload = $request->photo->storeAs('patients', $nameFile);
+//
+//            if (!$upload){
+//                return response()->json(['error' => 'Houve um erro ao enviar imagem'], 500);
+//            }else{
+//                $patient->photo = $nameFile;
+//            }
+//
+//
+//        }
+
         $patient->birthdate = $request->birthdate;
         $patient->gender = $request->gender;
         $patient->civil = $request->civil;

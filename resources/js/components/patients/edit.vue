@@ -178,13 +178,25 @@
                             ></v-autocomplete>
                         </div>
                     </div>
+                    <!-- div class="row">
+                        <div class="col-md-6 mx-auto">
+
+                            <v-file-input
+                                v-model="patientInfo.photo"
+                                accept="image/png, image/jpeg, image/bmp"
+                                placeholder="Escolha uma foto"
+                                prepend-icon="mdi-camera"
+                                label="Clique para escolher uma imagem"
+                            ></v-file-input>
+                        </div>
+                    </div -->
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn
                         color="error"
                         text
-                        @click="dialogNewPost = false"
+                        @click="$emit('listenEditRequestUser', true);"
                     >
                         Cancelar
                     </v-btn>
@@ -300,6 +312,8 @@ export default {
             axios.get(this.urlBaseApi + '/' + this.idCurrentPatient, settings).then(
                 (response) => {
                     this.patientInfo = response.data;
+                    this.date = this.patientInfo.birthdate;
+                    this.dateAdmission = this.patientInfo.admission;
                 }
             );
         },
@@ -400,19 +414,23 @@ export default {
                 'name': this.patientInfo.name,
                 'nick': this.patientInfo.nick,
                 //'additional': null,
-                'birthdate': this.patientInfo.birthdate,
+                'birthdate': this.date,
                 'gender': this.patientInfo.gender,
                 'civil': this.patientInfo.civil,
                 'education': this.patientInfo.education,
                 'occupation': this.patientInfo.occupation,
-                'admission': this.patientInfo.admission,
+                'admission': this.dateAdmission,
                 'country': this.patientInfo.country,
                 'situation': this.patientInfo.situation,
+                //'photo': this.patientInfo.photo
             };
+
+            console.log(data);
 
             axios.put(this.urlBaseApi + '/' + this.idCurrentPatient, data, settings)
                 .then(
-                    () => {
+                    (response) => {
+                        console.log(response)
                         this.$emit('listenEditRequestUser');
                     }
                 )
