@@ -208,10 +208,10 @@ export default {
         dialogNewTypeItem: false,
         menuManufacturingDate: false,
         menuExpirationDate: false,
-        dateManufacturing: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        dateExpiration: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        manufacturingVm: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
-        expirationDateVm: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        dateManufacturing: null,
+        dateExpiration: null,
+        manufacturingVm: vm.formatDate(null),
+        expirationDateVm: vm.formatDate(null),
 
     }),
     methods: {
@@ -249,7 +249,7 @@ export default {
 
             data.manufacturingDate = this.dateManufacturing;
             data.expirationDate = this.dateExpiration;
-
+            console.log(data);
             axios.post(this.urlBaseApiPatientInventory, data, settings)
                 .then(response => {
                     this.$emit('inventoryNew');

@@ -5,22 +5,31 @@
         floating
     >
         <v-list
-            nav
-            dense
+            expand
+            shaped
+            class="vertical-nav-menu-items pr-5"
         >
-            <v-list-item>
+            <v-list-item
+                class="vertical-nav-menu-link"
+                active-class="bg-gradient-primary white--text">
                 <v-list-item-icon>
                     <i class="fas fa-home"></i>
                 </v-list-item-icon>
                 <v-list-item-title class="nameApp align-self-center">Gestão ILPI</v-list-item-title>
             </v-list-item>
-            <v-list-item link :href="this.pageUrlEmployee">
+
+            <v-list-item link :href="this.pageUrlEmployee"
+                         class="vertical-nav-menu-link"
+                         active-class="bg-gradient-primary white--text">
                 <v-list-item-icon>
                     <i class="fas fa-user"></i>
                 </v-list-item-icon>
                 <v-list-item-title>Funcionários</v-list-item-title>
             </v-list-item>
-            <v-list-item link :href="this.pageUrlPatients">
+
+            <v-list-item link :href="this.pageUrlPatients"
+                         class="vertical-nav-menu-link"
+                         active-class="bg-gradient-primary white--text">
                 <v-list-item-icon>
                     <i class="fas fa-user"></i>
                 </v-list-item-icon>
@@ -57,5 +66,13 @@ export default {
 .fa-home {
     color: #7367F0 !important;
     font-size: 24px !important;
+}
+</style>
+
+<style lang="scss">
+.vertical-nav-menu-link {
+    &.v-list-item--active {
+        box-shadow: 0 5px 10px -4px rgba(94, 86, 105, 0.42);
+    }
 }
 </style>

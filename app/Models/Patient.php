@@ -67,4 +67,16 @@ class Patient extends Model
     public function getInventory(){
         return $this->hasMany(PatientInventory::class, 'patientId', 'id');
     }
+
+    public function getPathology(){
+        return $this->hasMany(PathologyRecord::class, 'patientId', 'id');
+    }
+
+    public function getTherapy(){
+        return $this->hasMany(Therapy::class, 'patientId', 'id');
+    }
+
+    public function getGuardians(){
+        return $this->hasMany(User::class, 'patientId', 'id');
+    }
 }

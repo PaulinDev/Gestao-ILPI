@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CivilController;
 use App\Http\Controllers\CountryController;
@@ -9,12 +10,16 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EventActivityController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\GroupActivityController;
+use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\InventoryTypeController;
 use App\Http\Controllers\OccupationController;
+use App\Http\Controllers\PathologyController;
+use App\Http\Controllers\PathologyRecordController;
 use App\Http\Controllers\PatientAddressController;
 use App\Http\Controllers\PatientCardController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientInventoryController;
+use App\Http\Controllers\TherapyController;
 use App\Http\Controllers\UserHealthController;
 use App\Http\Controllers\UserPermissionController;
 use App\Http\Controllers\UserPostController;
@@ -47,6 +52,9 @@ Route::prefix('v1')->middleware(['jwt.auth'])->group(function () {
 
     Route::apiResources([
         'patients' => PatientController::class,
+        'pathology' => PathologyController::class,
+        'pathology-record' => PathologyRecordController::class,
+        'appointments' => AppointmentController::class,
         'activity-patient' => EventActivityController::class,
         'activity-group' => GroupActivityController::class,
         'activities' => ActivityController::class,
@@ -56,18 +64,23 @@ Route::prefix('v1')->middleware(['jwt.auth'])->group(function () {
         'patient-inventory' => PatientInventoryController::class,
         'inventory-type' => InventoryTypeController::class,
         'employees' => EmployeeController::class,
+        'guardian' => GuardianController::class,
         'countries' => CountryController::class,
         'genders' => GenderController::class,
         'civils' => CivilController::class,
         'educations' => EducationController::class,
         'occupations' => OccupationController::class,
         'user-posts' => UserPostController::class,
+        'therapy' => TherapyController::class,
         'user-permission' => UserPermissionController::class,
         'vaccines' => VaccineController::class,
         'vaccine-brand' => VaccineBrandController::class,
         'vaccine-record' => VaccineRecordController::class,
     ]);
-
+    Route::get('vaccine-brand/vaccine/{id}', [VaccineBrandController::class, 'showBrandVaccine'])->name('api.vaccineBrand');
+    Route::get('vaccine/patient', [VaccineController::class, 'showPatientVaccine'])->name('api.vaccinePatient');
+    Route::get('vaccine/count/{id}', [VaccineRecordController::class, 'vaccineCount'])->name('api.vaccineCount');
+    Route::get('inventory/patient/{id}', [PatientInventoryController::class, 'getInventoryPatient'])->name('api.inventoryByPatient');
 });
 
 Route::post('login', [AuthController::class, 'login']);

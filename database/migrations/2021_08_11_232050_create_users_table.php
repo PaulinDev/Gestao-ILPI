@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->date('birthdate');
             $table->bigInteger('gender')->unsigned();
             $table->bigInteger('address')->unsigned()->nullable();
+            $table->bigInteger('patientId')->unsigned()->nullable();
             $table->text('userCpf');
             $table->text('userRg');
             $table->string('email')->unique();
@@ -38,6 +39,7 @@ class CreateUsersTable extends Migration
             $table->foreign("type")->references("id")->on("user_types")->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign("gender")->references("id")->on("genders")->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign("address")->references("id")->on("user_addresses")->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign("patientId")->references("id")->on("patients")->cascadeOnDelete()->cascadeOnUpdate();
 
         });
     }

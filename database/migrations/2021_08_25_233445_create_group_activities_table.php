@@ -17,6 +17,7 @@ class CreateGroupActivitiesTable extends Migration
             $table->engine = 'MyISAM';
             $table->id();
             $table->text("name");
+            $table->boolean('status');
             $table->timestamps();
 
         });

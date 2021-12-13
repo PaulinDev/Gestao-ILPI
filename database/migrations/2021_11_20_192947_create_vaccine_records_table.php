@@ -22,6 +22,7 @@ class CreateVaccineRecordsTable extends Migration
             $table->text('batch')->nullable();
             $table->text('comments')->nullable();
             $table->date('date');
+            $table->date('returnDate')->nullable();
             $table->timestamps();
 
             //FK's

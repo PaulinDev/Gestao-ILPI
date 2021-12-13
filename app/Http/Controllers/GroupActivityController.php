@@ -17,6 +17,7 @@ class GroupActivityController extends Controller
     {
         $newGroup = new GroupActivity();
         $newGroup->name = $request->name;
+        $newGroup->status = 1;
         $newGroup->save();
     }
 
@@ -25,9 +26,11 @@ class GroupActivityController extends Controller
         //
     }
 
-    public function update(Request $request, GroupActivity $groupActivity)
+    public function update(Request $request, GroupActivity $activityGroup)
     {
-        //
+        $activityGroup->name = $request->name;
+        $activityGroup->status = $request->status;
+        return $activityGroup->save();
     }
 
     public function destroy(GroupActivity $groupActivity)

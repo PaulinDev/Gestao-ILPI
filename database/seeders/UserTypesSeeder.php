@@ -15,8 +15,8 @@ class UserTypesSeeder extends Seeder
     public function run()
     {
         $types = [
-            ['name' => 'Administrador', 'description' => 'Acesso total ao sistema'],
-            ['name' => 'Funcionário', 'description' => 'Funcionário sem funções administrativas']
+            ['name' => 'Funcionário', 'description' => 'Funcionário/Administrador'],
+            ['name' => 'Responsavél', 'description' => 'Responsável por um utente'],
         ];
         DB::table('user_types')->insert($types);
     }

@@ -1,7 +1,6 @@
 <template>
     <v-app-bar
         app
-        color="white"
         elevation="0"
     >
         <div class="row">
@@ -9,8 +8,10 @@
 
             </div>
             <div class="col-md-6 user-bar">
-                <v-icon v-if="!this.$root.themeDark">mdi-weather-night</v-icon>
-                <v-icon v-if="this.$root.themeDark">mdi-white-balance-sunny</v-icon>
+                <v-fade-transition mode="out-in">
+                    <v-icon v-if="!$vuetify.theme.dark" @click="switchTheme()">mdi-weather-night</v-icon>
+                    <v-icon v-else @click="switchTheme()">mdi-white-balance-sunny</v-icon>
+                </v-fade-transition>
                 <v-icon class="ms-3">mdi-bell-outline</v-icon>
                 <v-menu
                     rounded="lg"
@@ -79,7 +80,10 @@
 export default {
     name: "bar",
     props: ['currentUserName', 'currentUserPost'],
-    mounted() {
+    methods: {
+        switchTheme() {
+            this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+        }
     }
 }
 </script>

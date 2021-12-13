@@ -1,0 +1,96 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Mail\newUserNotification;
+use App\Models\User;
+use App\Models\UserAddress;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+
+class GuardianController extends Controller
+{
+    public function index()
+    {
+        return User::where('type', '1')->with('getPost')->with('getPermission')->with('getGender')->get();
+    }
+
+    public function store(Request $request)
+    {
+        $randomPass = mt_rand(10000000, 99999999);
+        $guardian = new User();
+        $guardian->name = $request->name;
+        $guardian->email = $request->email;
+        $guardian->post = $request->userPost;
+        $guardian->type = $request->type;
+        $guardian->gender = $request->gender;
+        $guardian->birthdate = $request->birthdate;
+        $guardian->userCpf = $request->userCpf;
+        $guardian->userRg = $request->userRg;
+        $guardian->permission = $request->permission;
+        $guardian->password = Hash::make($randomPass);
+
+        $guardian->save();
+
+        $address = new UserAddress();
+        $address->Cep = $request->addressCep;
+        $address->Number = $request->addressNumber;
+        $address->City = $request->addressCity;
+        $address->Province = $request->addressProvince;
+        $address->District = $request->addressDistrict;
+        $address->Street = $request->addressStreet;
+        $address->userId = $guardian->id;
+
+        $address->save();
+
+        $guardian = User::find($guardian->id);
+        $guardian->address = $address->id;
+
+        $guardian->save();
+
+        $user = User::where('id', $guardian->id)->first();
+        $user->password = $randomPass;
+        Mail::to($user->email)->send(new newUserNotification($user));
+
+        return true;
+    }
+
+    public function show(User $employee)
+    {
+        return User::with('getAddress')->find($employee->id);
+    }
+
+    public function update(Request $request, User $employee)
+    {
+
+        if (empty($employee->getAddress)) {
+            $newAddress = new UserAddress();
+            $newAddress->Cep = $request->addressCep;
+            $newAddress->Number = $request->addressNumber;
+            $newAddress->City = $request->addressCity;
+            $newAddress->Province = $request->addressProvince;
+            $newAddress->District = $request->addressDistrict;
+            $newAddress->Street = $request->addressStreet;
+            $newAddress->userId = $employee->id;
+            $newAddress->save();
+            $employee->address = $newAddress->id;
+        } else {
+            $address = UserAddress::find($employee->address);
+            $address->Cep = $request->addressCep;
+            $address->Number = $request->addressNumber;
+            $address->City = $request->addressCity;
+            $address->Province = $request->addressProvince;
+            $address->District = $request->addressDistrict;
+            $address->Street = $request->addressStreet;
+            $address->save();
+        }
+
+        return $employee->update($request->all());
+    }
+
+    public function destroy(User $employee)
+    {
+        return $employee->delete();
+    }
+}

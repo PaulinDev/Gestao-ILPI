@@ -15,9 +15,14 @@ class UserPostSeeder extends Seeder
      */
     public function run()
     {
-        DB::table("user_posts")->insert([
+        $posts = [[
             'name' => 'Enfermeiro',
             'description' => 'enfermeiro auxiliar',
-        ]);
+        ], [
+            'name' => 'Responsável',
+            'description' => 'Responsável por um utente',
+        ],];
+
+        DB::table("user_posts")->insert($posts);
     }
 }

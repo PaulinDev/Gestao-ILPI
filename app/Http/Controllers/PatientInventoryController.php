@@ -25,6 +25,11 @@ class PatientInventoryController extends Controller
         return $inventory->save();
     }
 
+    public function getInventoryPatient($id)
+    {
+        return PatientInventory::where('patientId', '=', $id)->get();
+    }
+
     public function show(PatientInventory $patientInventory)
     {
         return $patientInventory;

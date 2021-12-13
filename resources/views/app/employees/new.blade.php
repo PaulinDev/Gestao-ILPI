@@ -4,9 +4,9 @@
     <new-employee
         url-base-api="{{route('employees.index')}}"
         url-base-api-genders="{{route('genders.index')}}"
+        url-page-index="{{route('user.list.page')}}"
         url-base-api-user-post="{{route('user-posts.index')}}"
         url-base-api-user-permission="{{route('user-permission.index')}}"
-        url-page-index="{{route('user.list.page')}}"
     ></new-employee>
     <form method="POST" action="{{ route('logout') }}">
         @csrf

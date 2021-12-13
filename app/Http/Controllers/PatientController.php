@@ -10,9 +10,9 @@ class PatientController extends Controller
 
     public function index()
     {
-        return Patient::with('getGender')->with('getCountry')->with('getSituation')
+        return Patient::with('getGender')->with('getCountry')->with('getSituation')->with('getGuardians')
             ->with('getOccupation')->with('getEducation')->with('getCivil')->with('getHealth')
-            ->with('getCards')->with('getAddress')->with('getInventory')->get();
+            ->with('getCards')->with('getAddress')->with('getInventory')->with('getPathology')->with('getTherapy')->get();
     }
 
 
@@ -36,9 +36,9 @@ class PatientController extends Controller
 
     public function show(Patient $patient)
     {
-        return Patient::with('getGender')->with('getCountry')->with('getSituation')
+        return Patient::with('getGender')->with('getCountry')->with('getSituation')->with('getGuardians')
             ->with('getOccupation')->with('getEducation')->with('getCivil')
-            ->with('getHealth')->with('getAddress')->with('getInventory')->with('getCards')->find($patient->id);
+            ->with('getHealth')->with('getAddress')->with('getInventory')->with('getTherapy')->with('getCards')->with('getPathology')->find($patient->id);
     }
 
 

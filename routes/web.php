@@ -1,7 +1,10 @@
 <?php
 
 use App\Mail\newUserNotification;
+use App\Models\Patient;
 use App\Models\User;
+use App\Models\Vaccine;
+use App\Models\VaccineRecord;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +43,28 @@ Route::middleware('auth')->prefix('employees')->group(function () {
     })->name('user.list.page');
 });
 
+/* GESTÃO DAS ATIVIDADES */
+
+Route::middleware('auth')->prefix('activity')->group(function () {
+
+    Route::get('/group', function () {
+        return view('app.activity.group');
+    })->name('activity.group.page');
+
+    Route::get('/view/{id}', function ($id) {
+        return view('app.activity.view');
+    })->name('activity.view.page');
+
+});
+
+/* GESTÃO DAS PATOLOGIAS */
+
+Route::middleware('auth')->prefix('pathology')->group(function () {
+    Route::get('/list', function () {
+        return view('app.pathology.index');
+    })->name('pathology.index.page');
+});
+
 /* GESTÃO DOS UTENTES */
 
 Route::middleware('auth')->prefix('patients')->group(function () {
@@ -56,8 +81,64 @@ Route::middleware('auth')->prefix('patients')->group(function () {
     })->name('patient.list.page');
 });
 
-Route::get('/teste-email', function(){
-    $user = User::with('getPost')->find(1);
 
-    Mail::to($user->email)->send(new newUserNotification($user));
+/* GESTÃO DAS VACINAS */
+
+Route::middleware('auth')->prefix('vaccines')->group(function () {
+
+    Route::get('', function (){
+        return redirect(\route('vaccine.list.page'));
+    });
+
+    Route::get('/edit/{id}', function ($id) {
+        return view('app.patients.edit', ['pageName' => 'Cadastro de Funcionário', 'parentPage' => 'Funcionários', 'breadCrumb' => true, 'idCurrentEmployee' => $id]);
+    })->name('vaccine.edit.page');
+
+    Route::get('/group', function () {
+        return view('app.vaccine.index', ['countVaccines' => Patient::withCount('getVaccines')->with('getVaccines')->get()]);
+    })->name('vaccine.list.page');
+
+    Route::get('/view/{id}', function ($id) {
+        $pageName = Vaccine::find($id);
+        return view('app.vaccine.view', ['pageName' => $pageName->name, 'parentPage' => 'Vacinas', 'breadCrumb' => true, 'idVaccine' => $id]);
+    })->name('vaccine.view');
+
+    Route::get('/details/{id}', function ($id) {
+        $pageName = Vaccine::find($id);
+        return view('app.vaccine.details', ['pageName' => $pageName->name, 'parentPage' => 'Vacinas', 'breadCrumb' => true, 'idVaccine' => $id]);
+    })->name('vaccine.details');
 });
+
+
+/* GESTÃO DOS AGENDAMENTOS */
+
+Route::middleware('auth')->prefix('appointments')->group(function () {
+
+    Route::get('', function (){
+        return redirect(\route('appointments.index.page'));
+    });
+
+    Route::get('/list', function () {
+        return view('app.appointments.index');
+    })->name('appointments.index.page');
+});
+
+/* PÁGINA INICIAL ESCOLHA PARA ADM OU UTENTES */
+
+Route::middleware('auth')->prefix('index')->group(function () {
+
+    Route::get('', function (){
+        return view('app.alternative.alternative');
+    });
+});
+
+Route::get('testes', function () {
+//    $vaccines = VaccineRecord::with('getVaccine')->with('getPatient')->get();
+//
+//    foreach ($vaccines as $x){
+//        print_r($x->id);
+//    }
+
+    return Vaccine::withCount('getRecords')->get();
+
+})->name('testes');

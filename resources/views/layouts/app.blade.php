@@ -17,7 +17,7 @@
     <v-app>
         <app-navigation page-url-employee="{{route('user.list.page')}}" page-url-patients="{{route('patient.list.page')}}"></app-navigation>
 
-        <app-bar current-user-name="{{Auth::user()->name}}" current-user-post="{{Auth::user()->getPost->name}}"></app-bar>
+        <app-bar current-user-name="{{shortName(Auth::user()->name)}}" current-user-post="{{Auth::user()->getPost->name}}"></app-bar>
 
         <v-main>
 

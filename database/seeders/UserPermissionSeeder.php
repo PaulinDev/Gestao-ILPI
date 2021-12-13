@@ -14,7 +14,11 @@ class UserPermissionSeeder extends Seeder
      */
     public function run()
     {
-        $permissions = [ ['name' => 'Administrador', 'description' => 'Acesso total'], ['name' => 'Auxiliar', 'description' => 'Acesso parcial'] ];
+        $permissions = [
+            ['name' => 'Administrador', 'description' => 'Acesso total'],
+            ['name' => 'Auxiliar', 'description' => 'Acesso parcial'] ,
+            ['name' => 'Responsável', 'description' => 'Acesso as informações de um utente']
+        ];
         DB::table('user_permissions')->insert($permissions);
     }
 }

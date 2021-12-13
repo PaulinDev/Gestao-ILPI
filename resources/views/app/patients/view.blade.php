@@ -30,6 +30,12 @@
             url-base-api-address="{{route('patient-address.index')}}"
             url-base-api-inventory-type="{{route('inventory-type.index')}}"
             url-base-api-patient-inventory="{{route('patient-inventory.index')}}"
+            url-base-api-inventory-by-patient="{{route('api.inventoryByPatient',[''])}}"
+            url-base-api-pathology="{{route('pathology.index')}}"
+            url-base-api-pathology-record="{{route('pathology-record.index')}}"
+            url-base-api-therapy="{{route('therapy.index')}}"
+            url-base-api-guardian="{{route('guardian.index')}}"
+            url-base-api-genders="{{route('genders.index')}}"
         ></patient-additional-info>
 
     </div>

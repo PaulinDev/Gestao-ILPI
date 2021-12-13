@@ -15,7 +15,8 @@ class GroupActivitySeeder extends Seeder
     public function run()
     {
         DB::table("group_activities")->insert([
-            'name' => 'Alimentação'
+            'name' => 'Alimentação',
+            'status' => 1
         ]);
     }
 }
