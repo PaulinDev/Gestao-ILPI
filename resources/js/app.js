@@ -4,6 +4,7 @@ import Vue from 'vue'
 
 import vuetify from './vuetify';
 
+Vue.component('app-nav-user-bar', require('./components/layouts/user-nav-bar.vue').default);
 Vue.component('app-bar', require('./components/layouts/bar.vue').default);
 Vue.component('app-navigation', require('./components/layouts/navigation.vue').default);
 Vue.component('app-login', require('./components/auth/app-login.vue').default);
@@ -41,6 +42,8 @@ Vue.component('therapy-new', require('./components/therapy/new.vue').default);
 Vue.component('therapy-edit', require('./components/therapy/edit.vue').default);
 
 Vue.component('dashboard', require('./components/dashboard/index.vue').default);
+
+Vue.component('relative-list', require('./components/relatives/list.vue').default);
 const app = new Vue({
     el: '#app',
     vuetify,

@@ -76,4 +76,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne(UserAddress::class, 'id', 'address');
     }
 
+    public function getPatients(){
+        return $this->hasMany(Guardian::class, 'userId', 'id');
+    }
 }

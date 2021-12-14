@@ -340,6 +340,7 @@
                                             color="primary"
                                             v-bind="attrs"
                                             v-on="on"
+                                            v-if="patientInfo.get_guardians === null || patientInfo.get_guardians.length === 0"
                                         >
                                             <i class="fas fa-plus"></i> Responsável
                                         </v-btn>
@@ -357,7 +358,7 @@
                             </v-dialog>
                         </div>
                         <v-divider></v-divider>
-                        <small v-if="patientInfo.get_inventory === null">Utente ainda não possui estas informações
+                        <small v-if="patientInfo.get_guardians === null">Utente ainda não possui estas informações
                             cadastradas</small>
                         <v-data-table
                             :headers="headersGuardian"
@@ -941,7 +942,10 @@ export default {
                     }
 
                     if (this.patientInfo.get_guardians !== null) {
+                        console.log(this.patientGuardians);
                         this.patientGuardians = this.patientInfo.get_guardians;
+                        console.log('this.patientGuardians');
+                        console.log(this.patientGuardians);
                     }
 
                     this.loadingItems = false;

@@ -194,7 +194,6 @@ export default {
             axios.get(this.urlBaseApi + '/' + this.idCurrentPatient, settings).then(
                 (response) => {
                     this.patientInfo = response.data;
-                    console.log(response.data.get_health);
                 }
             );
         },

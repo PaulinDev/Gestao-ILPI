@@ -43,6 +43,14 @@ Route::middleware('auth')->prefix('employees')->group(function () {
     })->name('user.list.page');
 });
 
+/* TELA DOS RESPONSÁVEIS */
+
+Route::middleware('auth')->prefix('relatives')->group(function () {
+    Route::get('list', function () {
+        return view('app.relatives.index', );
+    })->name('user.edit.page');
+});
+
 /* GESTÃO DAS ATIVIDADES */
 
 Route::middleware('auth')->prefix('activity')->group(function () {

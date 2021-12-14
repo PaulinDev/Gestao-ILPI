@@ -21,6 +21,7 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientInventoryController;
 use App\Http\Controllers\TherapyController;
 use App\Http\Controllers\UserHealthController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPermissionController;
 use App\Http\Controllers\UserPostController;
 use App\Http\Controllers\VaccineBrandController;
@@ -64,6 +65,7 @@ Route::prefix('v1')->middleware(['jwt.auth'])->group(function () {
         'patient-inventory' => PatientInventoryController::class,
         'inventory-type' => InventoryTypeController::class,
         'employees' => EmployeeController::class,
+        'users' => UserController::class,
         'guardian' => GuardianController::class,
         'countries' => CountryController::class,
         'genders' => GenderController::class,
@@ -83,4 +85,4 @@ Route::prefix('v1')->middleware(['jwt.auth'])->group(function () {
     Route::get('inventory/patient/{id}', [PatientInventoryController::class, 'getInventoryPatient'])->name('api.inventoryByPatient');
 });
 
-Route::post('login', [AuthController::class, 'login']);
+Route::middleware('cors')->post('login', [AuthController::class, 'login']);

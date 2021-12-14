@@ -20,7 +20,7 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        //
+        return User::find($user->id)->with('getPatients')->first();
     }
 
 
