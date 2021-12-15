@@ -15,7 +15,9 @@
       </v-card-text>
 
       <v-card-actions>
-        <v-btn color="orange" text> FICHA MÉDICA </v-btn>
+        <patient-pdf :url-base-api="urlBaseApiPatient" :id-current-patient="patient.id"></patient-pdf>
+
+        <v-btn color="orange" text> VER  </v-btn>
 
         <v-btn color="orange" text> ACESSAR QUARTO </v-btn>
       </v-card-actions>

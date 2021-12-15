@@ -35,6 +35,7 @@
         "@fullcalendar/timegrid": "^5.10.1",
         "@fullcalendar/vue": "^5.10.1",
         "@fullcalendar/vue3": "^5.10.1",
+        "jspdf": "^2.4.0",
         "v-mask": "^2.3.0",
         "vuetify": "^2.6.0"
     }

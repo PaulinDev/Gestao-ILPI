@@ -83,6 +83,7 @@ Route::prefix('v1')->middleware(['jwt.auth'])->group(function () {
     Route::get('vaccine/patient', [VaccineController::class, 'showPatientVaccine'])->name('api.vaccinePatient');
     Route::get('vaccine/count/{id}', [VaccineRecordController::class, 'vaccineCount'])->name('api.vaccineCount');
     Route::get('inventory/patient/{id}', [PatientInventoryController::class, 'getInventoryPatient'])->name('api.inventoryByPatient');
+    Route::post('patients/photo/{id}', [PatientController::class, 'updatePatientPhoto'])->name('api.updatePhotoPatient');
 });
 
 Route::middleware('cors')->post('login', [AuthController::class, 'login']);

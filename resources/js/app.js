@@ -35,6 +35,8 @@ Vue.component('appointments-list', require('./components/appointments/index.vue'
 Vue.component('appointments-new', require('./components/appointments/new.vue').default);
 
 Vue.component('activity-group', require('./components/activity/group.vue').default);
+Vue.component('activity-edit', require('./components/activity/edit.vue').default);
+Vue.component('activity', require('./components/activity/activity.vue').default);
 
 Vue.component('pathology-new', require('./components/pathology/new.vue').default);
 
@@ -44,6 +46,9 @@ Vue.component('therapy-edit', require('./components/therapy/edit.vue').default);
 Vue.component('dashboard', require('./components/dashboard/index.vue').default);
 
 Vue.component('relative-list', require('./components/relatives/list.vue').default);
+
+Vue.component('patient-pdf', require('./components/utils/exportToPdf.vue').default);
+
 const app = new Vue({
     el: '#app',
     vuetify,

@@ -48,7 +48,11 @@ Route::middleware('auth')->prefix('employees')->group(function () {
 Route::middleware('auth')->prefix('relatives')->group(function () {
     Route::get('list', function () {
         return view('app.relatives.index', );
-    })->name('user.edit.page');
+    })->name('relative.list.page');
+
+    Route::get('view/{id}', function ($id) {
+        return view('app.relatives.view', ['idCurrentPatient' => $id]);
+    })->name('relative.view.page');
 });
 
 /* GESTÃO DAS ATIVIDADES */
@@ -60,7 +64,7 @@ Route::middleware('auth')->prefix('activity')->group(function () {
     })->name('activity.group.page');
 
     Route::get('/view/{id}', function ($id) {
-        return view('app.activity.view');
+        return view('app.activity.view', ['idCurrentActivity' => $id]);
     })->name('activity.view.page');
 
 });

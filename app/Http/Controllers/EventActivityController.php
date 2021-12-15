@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
 use App\Models\EventActivity;
 use App\Models\Patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EventActivityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         return EventActivity::all();
@@ -25,35 +23,30 @@ class EventActivityController extends Controller
 
     public function store(Request $request)
     {
-        $data = json_decode($request->data);
-        $events = $data->events;
-        $insertEvents = [];
-        foreach ($events as $x) {
-            $patient = Patient::find($x->patient);
-            array_push(
-                $insertEvents,
-                [
-                    'patient' => intval($x->patient),
-                    'activity' => $x->activity,
-                    'title' => $x->title . $patient->name,
-                    'backgroundColor' => $x->backgroundColor,
-                    'date' => $x->date,
-                    'end' => $x->end
-                ]
-            );
+        $events = [];
+        $activity = Activity::find($request->activity);
+        foreach ($request->patient as $p) {
+            $patient = Patient::find($p);
+            array_push($events, [
+                'activity' => $request->activity,
+                'patient' => $p,
+                'title' => $activity->name.' - '.$patient->name,
+                'allDay' => $request->allDay,
+                'date' => $request->date,
+                'end' => $request->end,
+                'repeatDays' => json_encode($request->repeatDays),
+                'timeEnd' => $request->timeEnd,
+                'timeStart' => $request->timeStart,
+            ]);
         }
-        return  EventActivity::insert($insertEvents);
+
+        return DB::table('event_activities')->insert($events);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\EventActivity $eventActivity
-     * @return \Illuminate\Http\Response
-     */
-    public function show(EventActivity $event)
+
+    public function show(EventActivity $activityPatient)
     {
-        return $event;
+        return $activityPatient;
     }
 
     public function findActivity(Request $request)
@@ -62,26 +55,28 @@ class EventActivityController extends Controller
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\EventActivity $eventActivity
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, EventActivity $eventActivity)
+
+    public function update(Request $request, EventActivity $activityPatient)
     {
-        //
+        $activity = Activity::find($request->activity);
+        $patient = Patient::find($activityPatient->patient);
+
+        $activityPatient->activity = $request->activity;
+        $activityPatient->patient = $request->patient;
+        $activityPatient->title = $activity->name.' - '.$patient->name;
+        $activityPatient->allDay = $request->allDay;
+        $activityPatient->date = $request->date;
+        $activityPatient->end = $request->end;
+        $activityPatient->repeatDays = $request->repeatDays;
+        $activityPatient->timeEnd = $request->timeEnd;
+        $activityPatient->timeStart = $request->timeStart;
+
+        return $activityPatient->save();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\EventActivity $eventActivity
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(EventActivity $eventActivity)
+
+    public function destroy(EventActivity $activityPatient)
     {
-        //
+        return $activityPatient->delete();
     }
 }

@@ -20,6 +20,7 @@
             url-base-api-country="{{route('countries.index')}}"
             url-base-api-education="{{route('educations.index')}}"
             url-base-api-occupation="{{route('occupations.index')}}"
+            url-base-api-photo-patient="{{route('api.updatePhotoPatient',[''])}}"
         ></patient-info>
         <patient-additional-info
             class="col-md-8"

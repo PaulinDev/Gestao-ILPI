@@ -22,10 +22,25 @@ class EventActivityFactory extends Factory
     public function definition()
     {
         return [
-            'activity' => mt_rand(1,4),
+            'activity' => mt_rand(1, 4),
             'patient' => mt_rand(1, 200),
-            'color' => '#01a0d5',
             'title' => $this->faker->name,
+            'repeatDays' => json_encode([
+                $this->faker->randomElement(
+                    [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6
+                    ]
+                )
+            ]),
+            'allDay' => 0,
+            'timeEnd' => 0,
+            'timeStart' => $this->faker->time(),
             'date' => $this->faker->dateTimeBetween('-30 weeks', 'now'),
             'end' => $this->faker->dateTimeBetween('-30 weeks', 'now'),
         ];

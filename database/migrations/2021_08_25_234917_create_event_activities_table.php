@@ -19,9 +19,12 @@ class CreateEventActivitiesTable extends Migration
             $table->bigInteger("activity")->unsigned();
             $table->bigInteger("patient")->unsigned();
             $table->text("title");
-            $table->text("color")->nullable('#01a0d5');
-            $table->dateTime("date");
-            $table->dateTime("end")->nullable(null);
+            $table->boolean('allDay')->nullable();
+            $table->json('repeatDays')->nullable();
+            $table->date("date");
+            $table->time('timeStart')->nullable();
+            $table->time('timeEnd')->nullable();
+            $table->date("end")->nullable();
             $table->timestamps();
 
             //FK
