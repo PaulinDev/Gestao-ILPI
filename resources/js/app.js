@@ -46,8 +46,13 @@ Vue.component('therapy-edit', require('./components/therapy/edit.vue').default);
 Vue.component('dashboard', require('./components/dashboard/index.vue').default);
 
 Vue.component('relative-list', require('./components/relatives/list.vue').default);
+Vue.component('relative-patient-info', require('./components/relatives/patient-info.vue').default);
 
 Vue.component('patient-pdf', require('./components/utils/exportToPdf.vue').default);
+
+Vue.component('user-profile', require('./components/user/profile.vue').default);
+
+Vue.component('user-edit', require('./components/user/edit.vue').default);
 
 const app = new Vue({
     el: '#app',

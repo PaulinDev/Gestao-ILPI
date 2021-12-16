@@ -22,7 +22,7 @@
     <v-app>
         <app-navigation  page-url-employee="{{route('user.list.page')}}" page-url-patients="{{route('patient.list.page')}}"></app-navigation>
 
-        <app-bar url-logout="{{route('logout')}}" current-user-name="{{shortName(Auth::user()->name)}}" current-user-post="{{Auth::user()->getPost->name}}"></app-bar>
+        <app-bar page-url-profile="{{route('user-profile.page')}}" url-logout="{{route('logout')}}" current-user-name="{{shortName(Auth::user()->name)}}" current-user-post="{{Auth::user()->getPost->name}}"></app-bar>
 
         <v-main>
 

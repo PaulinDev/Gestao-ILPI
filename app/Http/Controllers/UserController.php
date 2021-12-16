@@ -14,7 +14,10 @@ class UserController extends Controller
 {
     public function index()
     {
-        return User::all();
+        return User::with('getPermission')->
+        with('getPost')->with('getGender')
+            ->with('getAddress')->with('getPatients')
+            ->get();
     }
 
     public function store(Request $request)
@@ -60,7 +63,9 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        return User::find($user->id);
+        return User::with('getPermission')->
+        with('getPost')->with('getGender')
+            ->with('getAddress')->with('getPatients')->find($user->id);
     }
 
 
@@ -71,7 +76,35 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        //
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->post = $request->userPost;
+        $user->type = $request->type;
+        $user->gender = $request->gender;
+        $user->birthdate = $request->birthdate;
+        $user->userCpf = $request->userCpf;
+        $user->userRg = $request->userRg;
+        $user->permission = $request->permission;
+
+        $user->save();
+
+        $address = new UserAddress();
+        $address->Cep = $request->addressCep;
+        $address->Number = $request->addressNumber;
+        $address->City = $request->addressCity;
+        $address->Province = $request->addressProvince;
+        $address->District = $request->addressDistrict;
+        $address->Street = $request->addressStreet;
+        $address->userId = $user->id;
+
+        $address->save();
+
+        $user = User::find($user->id);
+        $user->address = $address->id;
+
+        $user->save();
+
+        return true;
     }
 
     public function destroy(User $user)

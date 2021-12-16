@@ -5,6 +5,7 @@ use App\Models\Patient;
 use App\Models\User;
 use App\Models\Vaccine;
 use App\Models\VaccineRecord;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
@@ -142,6 +143,13 @@ Route::middleware('auth')->prefix('index')->group(function () {
     Route::get('', function (){
         return view('app.alternative.alternative');
     });
+});
+
+Route::middleware('auth')->prefix('user')->group(function () {
+
+    Route::get('profile', function (){
+        return view('app.profile.index',['idCurrentUser' => auth::user()->id]);
+    })->name('user-profile.page');
 });
 
 Route::get('testes', function () {

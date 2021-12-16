@@ -30,7 +30,7 @@ class EventActivityController extends Controller
             array_push($events, [
                 'activity' => $request->activity,
                 'patient' => $p,
-                'title' => $activity->name.' - '.$patient->name,
+                'title' => $activity->name . ' - ' . $patient->name,
                 'allDay' => $request->allDay,
                 'date' => $request->date,
                 'end' => $request->end,
@@ -49,11 +49,10 @@ class EventActivityController extends Controller
         return $activityPatient;
     }
 
-    public function findActivity(Request $request)
+    public function getEventsPatient($id)
     {
-        return EventActivity::where('activity', '=', $request->id)->get();
+        return EventActivity::where('patient', '=', $id)->get();
     }
-
 
 
     public function update(Request $request, EventActivity $activityPatient)
@@ -63,7 +62,7 @@ class EventActivityController extends Controller
 
         $activityPatient->activity = $request->activity;
         $activityPatient->patient = $patient->id;
-        $activityPatient->title = $activity->name.' - '.$patient->name;
+        $activityPatient->title = $activity->name . ' - ' . $patient->name;
         $activityPatient->allDay = $request->allDay;
         $activityPatient->date = $request->date;
         $activityPatient->end = $request->end;

@@ -4,7 +4,16 @@
 
 <div class="row">
     <div class="col-md-4 border-container-lg">
-        <patient-info :relative="true" id-current-patient="{{$idCurrentPatient}}" url-base-api="{{route('patients.index')}}" url-base-api-genders="{{route('genders.index')}}" url-base-api-civil="{{route('civils.index')}}" url-base-api-country="{{route('countries.index')}}" url-base-api-education="{{route('educations.index')}}" url-base-api-occupation="{{route('occupations.index')}}" url-base-api-photo-patient="{{route('api.updatePhotoPatient',[''])}}"></patient-info>
+        <patient-info
+            :relative="true"
+            id-current-patient="{{$idCurrentPatient}}"
+            url-base-api="{{route('patients.index')}}"
+            url-base-api-genders="{{route('genders.index')}}"
+            url-base-api-civil="{{route('civils.index')}}"
+            url-base-api-country="{{route('countries.index')}}"
+            url-base-api-education="{{route('educations.index')}}"
+            url-base-api-occupation="{{route('occupations.index')}}"
+            url-base-api-photo-patient="{{route('api.updatePhotoPatient',[''])}}"></patient-info>
     </div>
     <div class="col-md-8 mx-auto video text-center">
         <video class="w-100" controls autoplay playsinline></video>

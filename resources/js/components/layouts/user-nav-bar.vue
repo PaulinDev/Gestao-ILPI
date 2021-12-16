@@ -52,10 +52,7 @@
       <v-divider></v-divider>
 
       <!-- Profile -->
-      <v-list-item link>
-        <v-list-item-icon class="me-2">
-          <v-icon size="22"> </v-icon>
-        </v-list-item-icon>
+      <v-list-item link :href="pageUrlProfile">
         <v-list-item-content>
           <v-list-item-title>Perfil</v-list-item-title>
         </v-list-item-content>
@@ -93,7 +90,12 @@
 
 <script>
 export default {
-  props: ["currentUserName", "currentUserPost", "urlLogout"],
+  props: [
+      "currentUserName",
+      "currentUserPost",
+      "urlLogout",
+      "pageUrlProfile"
+  ],
 };
 </script>
 
