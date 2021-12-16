@@ -277,7 +277,6 @@
 
 <script>
 
-import { Field, Form } from 'vee-validate';
 
 export default {
     props: [

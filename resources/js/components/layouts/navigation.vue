@@ -35,6 +35,24 @@
                 </v-list-item-icon>
                 <v-list-item-title>Utentes</v-list-item-title>
             </v-list-item>
+
+            <v-list-item link :href="'http://localhost:8000/activity/group'"
+                         class="vertical-nav-menu-link"
+                         active-class="bg-gradient-primary white--text">
+                <v-list-item-icon>
+                    <i class="fas fa-user"></i>
+                </v-list-item-icon>
+                <v-list-item-title>Atividades</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item link :href="'http://localhost:8000/vaccines/group'"
+                         class="vertical-nav-menu-link"
+                         active-class="bg-gradient-primary white--text">
+                <v-list-item-icon>
+                    <i class="fas fa-user"></i>
+                </v-list-item-icon>
+                <v-list-item-title>Vacinas</v-list-item-title>
+            </v-list-item>
         </v-list>
     </v-navigation-drawer>
 </template>
