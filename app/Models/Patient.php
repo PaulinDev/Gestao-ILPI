@@ -77,6 +77,6 @@ class Patient extends Model
     }
 
     public function getGuardians(){
-        return $this->hasMany(Guardian::class, 'patientId', 'id');
+        return $this->hasOne(Guardian::class, 'patientId', 'id');
     }
 }

@@ -62,12 +62,12 @@ class EventActivityController extends Controller
         $patient = Patient::find($activityPatient->patient);
 
         $activityPatient->activity = $request->activity;
-        $activityPatient->patient = $request->patient;
+        $activityPatient->patient = $patient->id;
         $activityPatient->title = $activity->name.' - '.$patient->name;
         $activityPatient->allDay = $request->allDay;
         $activityPatient->date = $request->date;
         $activityPatient->end = $request->end;
-        $activityPatient->repeatDays = $request->repeatDays;
+        $activityPatient->repeatDays = json_encode($request->repeatDays);
         $activityPatient->timeEnd = $request->timeEnd;
         $activityPatient->timeStart = $request->timeStart;
 

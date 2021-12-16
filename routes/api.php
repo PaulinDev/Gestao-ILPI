@@ -11,6 +11,7 @@ use App\Http\Controllers\EventActivityController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\GroupActivityController;
 use App\Http\Controllers\GuardianController;
+use App\Http\Controllers\GuardianTypeController;
 use App\Http\Controllers\InventoryTypeController;
 use App\Http\Controllers\OccupationController;
 use App\Http\Controllers\PathologyController;
@@ -67,6 +68,7 @@ Route::prefix('v1')->middleware(['jwt.auth'])->group(function () {
         'employees' => EmployeeController::class,
         'users' => UserController::class,
         'guardian' => GuardianController::class,
+        'guardian-type' => GuardianTypeController::class,
         'countries' => CountryController::class,
         'genders' => GenderController::class,
         'civils' => CivilController::class,

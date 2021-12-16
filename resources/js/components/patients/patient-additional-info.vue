@@ -333,6 +333,7 @@
                             <v-dialog
                                 v-model="dialogNewGuardian"
                                 max-width="auto"
+                                min="450"
                             >
                                 <template v-slot:activator="{ on, attrs }">
                                     <div class="col-md-6 px-0 py-0" style="text-align: right;">
@@ -348,7 +349,9 @@
                                 </template>
                                 <new-guardian
                                     v-if="dialogNewGuardian"
+                                    :url-base-api-users="urlBaseApiUsers"
                                     :url-base-api-guardian="urlBaseApiGuardian"
+                                    :url-base-api-guardian-type="urlBaseApiGuardianType"
                                     :url-base-api-genders="urlBaseApiGenders"
                                     :id-current-patient="idCurrentPatient"
                                     @listenNewGuardian="listenNewGuardian"
@@ -367,12 +370,16 @@
                             :loading="loadingItems"
                             locale="pt"
                             loading-text="Carregando... Por favor aguarde"
+                            v-if="!loadGetUser"
                         >
 
+                            <template v-slot:item.userId="{ item }">
+                                <span>{{guardian.name}}</span>
+                            </template>
                             <template v-slot:item.actions="{ item }">
                                 <v-icon
                                     small
-                                    @click="deleteItemGuardian = item.id; confirmDialogDelete = true"
+                                    @click="deleteItemGuardian = item.id; confirmDialogDeleteGuardian = true"
                                 >
                                     mdi-delete
                                 </v-icon>
@@ -573,6 +580,38 @@
         </v-row>
         <v-row justify="center">
             <v-dialog
+                v-model="confirmDialogDeleteGuardian"
+                persistent
+                max-width="auto"
+            >
+                <v-card>
+                    <v-card-title class="text-h5">
+                        Deletar responsável
+                    </v-card-title>
+                    <v-card-text>Ao confirmar, o usuário não terá mais informações sobre o utente, porém ainda terá permissões normais no sistema.
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            color="error"
+                            text
+                            @click="confirmDialogDeleteGuardian = false; deleteItemGuardian = null"
+                        >
+                            Cancelar
+                        </v-btn>
+                        <v-btn
+                            color="success"
+                            text
+                            @click="deleteGuardian(deleteItemGuardian)"
+                        >
+                            Confirmar
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+        </v-row>
+        <v-row justify="center">
+            <v-dialog
                 v-model="confirmDialogDeleteTherapy"
                 persistent
                 max-width="auto"
@@ -688,6 +727,8 @@ export default {
         'urlBaseApiPathologyRecord',
         'urlBaseApiInventoryByPatient',
         'urlBaseApiGuardian',
+        'urlBaseApiGuardianType',
+        'urlBaseApiUsers',
         'urlBaseApiGenders',
     ],
     data: vm => ({
@@ -699,12 +740,15 @@ export default {
         formHealth: true,
         formCards: true,
         formAddress: true,
+        loadGetUser: true,
         formSubscription: true,
         search: '',
         deleteItem: null,
+        deleteItemGuardian: null,
         deletePathologyId: null,
         deleteTherapyId: null,
         confirmDialogDelete: false,
+        confirmDialogDeleteGuardian: false,
         confirmDialogDeleteTherapy: false,
         confirmDialogDeletePathology: false,
         editDialogItemInventory: false,
@@ -738,9 +782,10 @@ export default {
         ],
         headersGuardian: [
             {text: "Registro", value: "id"},
-            {text: "Nome", value: "name"},
+            {text: "Nome", value: "userId"},
             {text: "Ações", value: "actions"},
         ],
+        guardian: {},
         patientInfo: {
             name: '',
             nick: '',
@@ -758,6 +803,7 @@ export default {
             get_inventory: null,
             get_pathology: null,
             get_therapy: null,
+            get_guardians: null,
         },
         patientHealth: {
             bloodGroup: '',
@@ -856,7 +902,7 @@ export default {
             } else {
                 this.dialogNewGuardian = false;
                 this.alert = true;
-                this.alertMessage = 'Responsável cadastrado com sucesso';
+                this.alertMessage = 'Responsável associado com sucesso';
                 this.getPatient();
             }
         },
@@ -942,10 +988,9 @@ export default {
                     }
 
                     if (this.patientInfo.get_guardians !== null) {
-                        console.log(this.patientGuardians);
-                        this.patientGuardians = this.patientInfo.get_guardians;
-                        console.log('this.patientGuardians');
-                        console.log(this.patientGuardians);
+                        this.patientGuardians = [];
+                        this.patientGuardians.push(this.patientInfo.get_guardians);
+                        this.getUser(this.patientInfo.get_guardians.userId);
                     }
 
                     this.loadingItems = false;
@@ -983,6 +1028,21 @@ export default {
             );
 
         },
+        getUser(id) {
+            let settings = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': this.$root.token()
+                }
+            };
+            axios.get(this.urlBaseApiUsers+'/'+id, settings).then(
+                (response) => {
+                    this.loadGetUser = false;
+                    this.guardian = response.data;
+                }
+            );
+
+        },
         deleteItemInventory(item) {
             let settings = {
                 headers: {
@@ -999,6 +1059,27 @@ export default {
                     this.alert = true;
                     this.alertMessage = 'Item do estoque removido com sucesso';
                     this.confirmDialogDelete = false;
+                    this.getPatient();
+                }
+            );
+
+        },
+        deleteGuardian(item) {
+            let settings = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': this.$root.token()
+                },
+                data: {
+                    item: item
+                }
+            };
+            axios.delete(this.urlBaseApiGuardian + '/' + item, settings).then(
+                (response) => {
+                    this.alert = true;
+                    this.patientGuardians = [];
+                    this.alertMessage = 'Usuário foi tirado da responsabilidade do utente com sucesso';
+                    this.confirmDialogDeleteGuardian = false;
                     this.getPatient();
                 }
             );

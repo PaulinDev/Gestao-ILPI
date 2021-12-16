@@ -36,6 +36,8 @@
             url-base-api-pathology-record="{{route('pathology-record.index')}}"
             url-base-api-therapy="{{route('therapy.index')}}"
             url-base-api-guardian="{{route('guardian.index')}}"
+            url-base-api-guardian-type="{{route('guardian-type.index')}}"
+            url-base-api-users="{{route('users.index')}}"
             url-base-api-genders="{{route('genders.index')}}"
         ></patient-additional-info>
 

@@ -213,7 +213,6 @@
       <!-- PACIENTES SEM REGISTRO DE VACINA -->
       <v-expansion-panels
         class="mt-3"
-        :disabled="this.currentStatusVaccine === 0"
       >
         <!-- PACIENTES COM REGISTRO DE VACINA -->
         <v-expansion-panel>
@@ -227,7 +226,7 @@
                   class="col-md-3 col-12"
                   v-for="item in patientWithActivityRecords"
                   ref="x"
-                  v-bind:key="item.id"
+                  v-bind:key="item.event"
                 >
                   <v-card>
                     <v-card-title>
@@ -301,8 +300,7 @@
     </v-dialog>
     <v-row justify="center">
       <v-dialog v-model="editDialogEventDetails" persistent max-width="auto">
-        <activity-edit :id-current-activity="idCurrentActivity" :base-url-api="baseUrlApi" :id-current-event="idCurrentEvent">
-
+        <activity-edit v-if="editDialogEventDetails" :id-current-activity="idCurrentActivity" :base-url-api="baseUrlApi" :id-current-event="idCurrentEvent" @listenEditEvent="listenEditEvent">
         </activity-edit>
       </v-dialog>
     </v-row>
@@ -443,20 +441,21 @@ export default {
             title: e.title,
             start: e.date + "T" + e.timeStart,
             end: e.end + "T" + e.timeEnd,
-            allDay: e.allDay === 0 ? false : true,
+            allDay: e.allDay !== 0,
             daysOfWeek: JSON.parse(e.repeatDays),
           });
         });
       });
     },
-    listenEditVaccines(cancel) {
+      listenEditEvent(cancel) {
       if (cancel) {
-        this.editDialogVaccineDetails = false;
+        this.editDialogEventDetails = false;
       } else {
-        this.editDialogVaccineDetails = false;
+        this.editDialogEventDetails = false;
         this.alert = true;
-        this.alertMessage = "Vacina atualizada com sucesso";
+        this.alertMessage = "Registro de atividade atualizado com sucesso";
         this.getListPatients();
+        this.getEvents();
       }
     },
     deleteDialogItem(id) {
